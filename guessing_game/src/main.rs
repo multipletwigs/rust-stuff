@@ -1,42 +1,42 @@
-use std::io; 
-use rand::thread_rng; // Brings in the thread_rng method
-use rand::Rng; // Brings in the gen_range method
-use std::cmp::Ordering; 
+use std::{cmp::Ordering, io};
+
+use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
 
-    let secret_number = thread_rng().gen_range(1..=100); 
-    // let secret_number = rand::thread_rng().gen_range(1..=100);
+    let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    println!("The secret nunber is: {secret_number}"); 
+    loop {
+        println!("Please input your guess.");
+        let mut guess = String::new();
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line!");
 
-    println!("Please input your guess."); 
+        // The problem is parse can parse into any type that implements the fromstr trait
+        // so we need explicit types here, we can also use turbofish here to tell parse
+        // what type to parse into
+        let guess = match guess.trim().parse::<u32>() {
+            Ok(num) => num,
+            Err(_) => {
+                println!(
+                    "{} doesn't seem like a valid number uwu please input a valid number",
+                    guess.trim()
+                );
+                continue;
+            }
+        };
 
-    let mut guess: String = String::new(); 
+        println!("You guessed: {guess}");
 
-
-    io::stdin()
-    .read_line(&mut guess)
-    .expect("Failed to read line"); 
-
-    // Reusing variable names is called shadowing, which is useful for type conversion 
-    // Note that how parse also returns a Result enum which allows us to use the expect method
-    // let guess: Result<u32> = guess.trim().parse().expect("Please input a number"); 
-    let guess = match guess.trim().parse::<u32>(){
-        Ok(num) => num,
-        Err(_) => {
-            println!("Please input a number"); 
-            continue; 
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You win!");
+                break;
+            }
         }
-    }; 
-
-    println!("You guessed: {guess}"); 
-
-    // Here comp gives out a few cases
-    match guess.cmp(&secret_number){
-        Ordering::Less => println!("Too small"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("You Win!")
     }
 }
