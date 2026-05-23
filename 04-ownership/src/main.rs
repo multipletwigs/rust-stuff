@@ -1,5 +1,16 @@
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+
 fn main() {
-    let str_1 = String::from("Yo first stirng");
-    let str_2 = str_1;
-    println!("trying to print str 1 {}", str_1);
+    let s = String::from("Hello World");
+    let word = first_word(&s);
+    println!("{}", word)
 }
