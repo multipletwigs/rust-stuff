@@ -41,7 +41,8 @@ fn handle_connection(mut stream: TcpStream) {
         let body = fs::read_to_string("./hello.html").unwrap_or_default();
         HttpResponse::ok(body)
     } else {
-        HttpResponse::not_found("<h1>404 Not Found</h1>".to_string())
+        let body = fs::read_to_string("./404.html").unwrap_or_default();
+        HttpResponse::not_found(body)
     };
 
     // Because `HttpResponse` implements `Display`, we can format it straight
