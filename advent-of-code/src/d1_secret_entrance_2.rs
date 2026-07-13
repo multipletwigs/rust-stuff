@@ -1,10 +1,9 @@
 use std::{
-    char::MAX,
     fs::File,
     io::{BufRead, BufReader},
 };
 
-const INIT_SAFE_VALUE: i16 = 50;
+const INIT_SAFE_VALUE: i16 = 60;
 const MAX_SAFE_VALUE: i16 = 100;
 
 /**

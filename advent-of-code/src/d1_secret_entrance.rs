@@ -1,6 +1,6 @@
 use std::{
     fs::File,
-    io::{BufRead, BufReader, Read},
+    io::{BufRead, BufReader},
 };
 
 const INIT_SAFE_VALUE: i16 = 50;
