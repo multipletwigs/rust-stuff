@@ -14,7 +14,7 @@ const MAX_SAFE_VALUE: i16 = 100;
  *
  * But can we parse in a way where we can utilize some trait impl
  * **/
-pub fn secret_entrance() {
+pub fn secret_entrance_1() {
     let input_file = File::open("./src/input/01_input.txt").unwrap();
     let reader = BufReader::new(input_file);
     let mut safe_pointer: i16 = INIT_SAFE_VALUE;
